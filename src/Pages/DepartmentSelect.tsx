@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
+import {
+  DEPARTMENT_CATALOG,
+  DEPT_CODES,
+  type DeptCode,
+} from "../lib/departmentData";
 
-const departments = [
-  { code: "CE", name: "Civil Engineering" },
-  { code: "CPE", name: "Computer Engineering" },
-  { code: "ECE", name: "Electrical Engineering" },
-  { code: "EE", name: "Electronics Engineering" },
-  { code: "IE", name: "Industrial Engineering" },
-  { code: "MFE", name: "Manufacturing Engineering" },
-  { code: "ME", name: "Mechanical Engineering" },
-  { code: "MEE", name: "Mechatronics Engineering" },
-];
+const departments = DEPT_CODES.map((code: DeptCode) => ({
+  code,
+  name: DEPARTMENT_CATALOG[code].name,
+}));
 
 export default function DepartmentSelect() {
   const navigate = useNavigate();

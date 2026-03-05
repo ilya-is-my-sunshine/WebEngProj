@@ -1,21 +1,25 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  fetchLandingHeroData,
+  fetchLandingSections,
+  type LandingHeroData,
+  type LandingSectionData,
+} from "../lib/landingData";
 
-type PlaceholderSectionProps = {
-  id: string;
-  title: string;
-  assignedGroup: string;
-};
+type PlaceholderSectionProps = LandingSectionData;
 
 function PlaceholderSection({
   id,
   title,
   assignedGroup,
+  statusLabel,
 }: PlaceholderSectionProps) {
   return (
     <section id={id} className="max-w-6xl mx-auto px-6 py-10">
       <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
         <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">
-          RESERVED SECTION
+          {statusLabel}
         </p>
         <h2 className="mt-3 text-2xl font-bold text-gray-900">{title}</h2>
         <p className="mt-2 text-sm text-gray-600">{assignedGroup}</p>
@@ -25,6 +29,61 @@ function PlaceholderSection({
 }
 
 export default function LandingPage() {
+  const [hero, setHero] = useState<LandingHeroData | null>(null);
+  const [sections, setSections] = useState<LandingSectionData[]>([]);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const load = async () => {
+      try {
+        const [heroData, sectionData] = await Promise.all([
+          fetchLandingHeroData(),
+          fetchLandingSections(),
+        ]);
+
+        if (!isCancelled) {
+          setHero(heroData);
+          setSections(sectionData);
+        }
+      } catch (loadError) {
+        if (!isCancelled) {
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : "Failed to load landing content."
+          );
+        }
+      }
+    };
+
+    load();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  if (error) {
+    return (
+      <div className="min-h-screen grid place-items-center px-6 text-center">
+        <p className="text-sm text-red-700">{error}</p>
+      </div>
+    );
+  }
+
+  if (!hero) {
+    return (
+      <div className="min-h-screen grid place-items-center px-6 text-center">
+        <p className="text-sm text-gray-600">Loading landing page...</p>
+      </div>
+    );
+  }
+
+  const footerSection = sections.find((section) => section.id === "footer");
+  const mainSections = sections.filter((section) => section.id !== "footer");
+
   return (
     <div className="min-h-screen bg-white">
       <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
@@ -43,63 +102,35 @@ export default function LandingPage() {
         <section id="hero" className="max-w-6xl mx-auto px-6 py-16 md:py-20">
           <div className="rounded-3xl bg-gradient-to-r from-[#f4efe3] via-[#ead9b5] to-[#d6b26f] p-8 md:p-12">
             <p className="text-xs font-semibold tracking-[0.14em] text-[#6f4d12]">
-              LANDING PAGE • HERO SECTION
+              {hero.eyebrow}
             </p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-black leading-tight text-[#2a1d0b]">
-              Bulacan State University
-              <br />
-              College of Engineering
+            <h2 className="mt-4 text-3xl md:text-5xl font-black leading-tight text-[#2a1d0b] whitespace-pre-line">
+              {hero.title}
             </h2>
             <p className="mt-4 max-w-2xl text-sm md:text-base text-[#4a3721]">
-              This hero block is active for your group. Other landing sections are
-              placeholders and should be implemented by their assigned groups.
+              {hero.description}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/departments"
+                to={hero.primaryButtonHref}
                 className="rounded-full bg-[#2a1d0b] px-5 py-2 text-sm font-semibold text-white hover:bg-black"
               >
-                Enter Department Pages
+                {hero.primaryButtonLabel}
               </Link>
             </div>
           </div>
         </section>
 
-        <PlaceholderSection
-          id="mission-vision"
-          title="Mission & Vision"
-          assignedGroup="Roxas, Aiam Airron L"
-        />
-        <PlaceholderSection
-          id="department-grid"
-          title="Department Grid"
-          assignedGroup="Pagdanganan, Arviella S"
-        />
-        <PlaceholderSection
-          id="news"
-          title="News"
-          assignedGroup="Dela Cruz, Richter Vhon C"
-        />
-        <PlaceholderSection
-          id="facilities"
-          title="Facilities"
-          assignedGroup="Jones, Colleen Iris P"
-        />
-        <PlaceholderSection
-          id="statistics"
-          title="Statistics"
-          assignedGroup="Pascual, Alyssa S."
-        />
-        <PlaceholderSection
-          id="contact"
-          title="Contact"
-          assignedGroup="Pagayunan, Lhara Mei R"
-        />
+        {mainSections.map((section) => (
+          <PlaceholderSection key={section.id} {...section} />
+        ))}
       </main>
 
       <footer id="footer" className="border-t bg-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
-          Footer placeholder. Assigned group: Villareal, Trisha Mae
+          {footerSection
+            ? `${footerSection.statusLabel}: ${footerSection.assignedGroup}`
+            : "Footer placeholder"}
         </div>
       </footer>
     </div>

@@ -1,25 +1,60 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import Navbar from "../components/navbar";
 import SectionTitle from "../components/SectionTitle";
 import Footer from "../components/Footer";
 
-import { departments, type DeptCode } from "../data/department";
 import { mergeDeptWithOverrides } from "../lib/departmentAdmin";
+import {
+  fetchDepartmentData,
+  isDeptCode,
+  type DeptCode,
+} from "../lib/departmentData";
+import type { DepartmentData } from "../types/department";
 
 export default function DepartmentPage() {
   const { deptCode } = useParams();
 
   const code = (deptCode?.toUpperCase() || "") as DeptCode;
-  const baseDept = departments[code];
+  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    if (!isDeptCode(code)) return;
+
+    let isCancelled = false;
+
+    const load = async () => {
+      try {
+        setError("");
+        const data = await fetchDepartmentData(code);
+        if (!isCancelled) setBaseDept(data);
+      } catch (loadError) {
+        if (!isCancelled) {
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : "Failed to load department data."
+          );
+        }
+      }
+    };
+
+    load();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [code]);
+
   const dept = useMemo(
-    () => (baseDept ? mergeDeptWithOverrides(baseDept) : undefined),
+    () => (baseDept ? mergeDeptWithOverrides(baseDept) : null),
     [baseDept]
   );
 
-  if (!dept) return <Navigate to="/departments" replace />;
-
   useEffect(() => {
+    if (!dept) return;
+
     document.title = `${dept.code} | BULSU COE`;
 
     const link =
@@ -29,7 +64,25 @@ export default function DepartmentPage() {
     if (link) {
       link.href = `/icons/${dept.code.toLowerCase()}.svg`;
     }
-  }, [dept.code]);
+  }, [dept]);
+
+  if (!isDeptCode(code)) return <Navigate to="/departments" replace />;
+
+  if (error) {
+    return (
+      <div className="min-h-screen grid place-items-center px-6 text-center">
+        <p className="text-sm text-red-700">{error}</p>
+      </div>
+    );
+  }
+
+  if (!dept) {
+    return (
+      <div className="min-h-screen grid place-items-center px-6 text-center">
+        <p className="text-sm text-gray-600">Loading department page...</p>
+      </div>
+    );
+  }
 
   const onNav = (id: string) => {
     const el = document.getElementById(id);
