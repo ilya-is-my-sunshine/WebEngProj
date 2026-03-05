@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   fetchLandingHeroData,
@@ -7,25 +7,87 @@ import {
   type LandingSectionData,
 } from "../lib/landingData";
 
-type PlaceholderSectionProps = LandingSectionData;
+type SectionProps = {
+  data: LandingSectionData;
+};
 
-function PlaceholderSection({
-  id,
-  title,
-  assignedGroup,
-  statusLabel,
-}: PlaceholderSectionProps) {
+function MissionVisionSection({ data }: SectionProps) {
   return (
-    <section id={id} className="max-w-6xl mx-auto px-6 py-10">
-      <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
-        <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">
-          {statusLabel}
-        </p>
-        <h2 className="mt-3 text-2xl font-bold text-gray-900">{title}</h2>
-        <p className="mt-2 text-sm text-gray-600">{assignedGroup}</p>
-      </div>
+    <section id="mission-vision" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
     </section>
   );
+}
+
+function DepartmentGridSection({ data }: SectionProps) {
+  return (
+    <section id="department-grid" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
+    </section>
+  );
+}
+
+function NewsSection({ data }: SectionProps) {
+  return (
+    <section id="news" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
+    </section>
+  );
+}
+
+function FacilitiesSection({ data }: SectionProps) {
+  return (
+    <section id="facilities" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
+    </section>
+  );
+}
+
+function StatisticsSection({ data }: SectionProps) {
+  return (
+    <section id="statistics" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
+    </section>
+  );
+}
+
+function ContactSection({ data }: SectionProps) {
+  return (
+    <section id="contact" className="max-w-6xl mx-auto px-6 py-10">
+      <SectionCard data={data} />
+    </section>
+  );
+}
+
+function LandingFooterSection({ data }: SectionProps) {
+  return (
+    <footer id="footer" className="border-t bg-gray-100">
+      <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
+        {data.statusLabel}: {data.assignedGroup}
+      </div>
+    </footer>
+  );
+}
+
+function SectionCard({ data }: SectionProps) {
+  return (
+    <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
+      <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">
+        {data.statusLabel}
+      </p>
+      <h2 className="mt-3 text-2xl font-bold text-gray-900">{data.title}</h2>
+      <p className="mt-2 text-sm text-gray-600">{data.assignedGroup}</p>
+    </div>
+  );
+}
+
+function fallbackSection(id: string, title: string): LandingSectionData {
+  return {
+    id,
+    title,
+    assignedGroup: "Assigned group",
+    statusLabel: "RESERVED SECTION",
+  };
 }
 
 export default function LandingPage() {
@@ -65,6 +127,12 @@ export default function LandingPage() {
     };
   }, []);
 
+  const sectionById = useMemo(() => {
+    const mapping = new Map<string, LandingSectionData>();
+    for (const section of sections) mapping.set(section.id, section);
+    return mapping;
+  }, [sections]);
+
   if (error) {
     return (
       <div className="min-h-screen grid place-items-center px-6 text-center">
@@ -81,8 +149,20 @@ export default function LandingPage() {
     );
   }
 
-  const footerSection = sections.find((section) => section.id === "footer");
-  const mainSections = sections.filter((section) => section.id !== "footer");
+  const missionVision =
+    sectionById.get("mission-vision") ||
+    fallbackSection("mission-vision", "Mission & Vision");
+  const departmentGrid =
+    sectionById.get("department-grid") ||
+    fallbackSection("department-grid", "Department Grid");
+  const news = sectionById.get("news") || fallbackSection("news", "News");
+  const facilities =
+    sectionById.get("facilities") || fallbackSection("facilities", "Facilities");
+  const statistics =
+    sectionById.get("statistics") || fallbackSection("statistics", "Statistics");
+  const contact =
+    sectionById.get("contact") || fallbackSection("contact", "Contact");
+  const footer = sectionById.get("footer") || fallbackSection("footer", "Footer");
 
   return (
     <div className="min-h-screen bg-white">
@@ -121,18 +201,15 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {mainSections.map((section) => (
-          <PlaceholderSection key={section.id} {...section} />
-        ))}
+        <MissionVisionSection data={missionVision} />
+        <DepartmentGridSection data={departmentGrid} />
+        <NewsSection data={news} />
+        <FacilitiesSection data={facilities} />
+        <StatisticsSection data={statistics} />
+        <ContactSection data={contact} />
       </main>
 
-      <footer id="footer" className="border-t bg-gray-100">
-        <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
-          {footerSection
-            ? `${footerSection.statusLabel}: ${footerSection.assignedGroup}`
-            : "Footer placeholder"}
-        </div>
-      </footer>
+      <LandingFooterSection data={footer} />
     </div>
   );
 }
