@@ -51,10 +51,14 @@ Each department has one JSON file in `public/data/departments/`:
 
 - `CE.json`, `CPE.json`, `ECE.json`, `EE.json`, `IE.json`, `MFE.json`, `ME.json`, `MEE.json`
 
+Each department also has its own page file in `src/Pages/departments/`:
+
+- `CE.tsx`, `CPE.tsx`, `ECE.tsx`, `EE.tsx`, `IE.tsx`, `MFE.tsx`, `ME.tsx`, `MEE.tsx`
+
 ## 3) Scope Rules
 
 - Landing teams edit only their assigned JSON file and section assets.
-- Department teams edit only their department JSON file and department-specific assets.
+- Department teams edit only their department JSON file, their own department TSX page file, and department-specific assets.
 - Avoid editing shared React files unless explicitly requested by maintainer.
 
 ## 4) Merge Flow

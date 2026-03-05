@@ -1,27 +1,25 @@
-import { useEffect, useMemo, useState } from "react";
-import { Link, Navigate, useParams } from "react-router-dom";
-import Navbar from "../components/navbar";
-import SectionTitle from "../components/SectionTitle";
-import Footer from "../components/Footer";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Link } from "react-router-dom";
+import Navbar from "../../components/navbar";
+import SectionTitle from "../../components/SectionTitle";
+import Footer from "../../components/Footer";
+import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
+import { fetchDepartmentData, type DeptCode } from "../../lib/departmentData";
+import type { DepartmentData } from "../../types/department";
 
-import { mergeDeptWithOverrides } from "../lib/departmentAdmin";
-import {
-  fetchDepartmentData,
-  isDeptCode,
-  type DeptCode,
-} from "../lib/departmentData";
-import type { DepartmentData } from "../types/department";
+type DepartmentTemplateProps = {
+  code: DeptCode;
+  extraSections?: ReactNode;
+};
 
-export default function DepartmentPage() {
-  const { deptCode } = useParams();
-
-  const code = (deptCode?.toUpperCase() || "") as DeptCode;
+export default function DepartmentTemplate({
+  code,
+  extraSections,
+}: DepartmentTemplateProps) {
   const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    if (!isDeptCode(code)) return;
-
     let isCancelled = false;
 
     const load = async () => {
@@ -65,8 +63,6 @@ export default function DepartmentPage() {
       link.href = `/icons/${dept.code.toLowerCase()}.svg`;
     }
   }, [dept]);
-
-  if (!isDeptCode(code)) return <Navigate to="/departments" replace />;
 
   if (error) {
     return (
@@ -319,6 +315,8 @@ export default function DepartmentPage() {
           ))}
         </div>
       </section>
+
+      {extraSections}
 
       <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
         <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">

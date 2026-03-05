@@ -34,6 +34,7 @@ npm run build
 ## Collaboration Setup
 
 See [docs/PROJECT_WORKFLOW.md](docs/PROJECT_WORKFLOW.md).
+For per-department TSX customization, see [docs/DEPARTMENT_PAGE_CUSTOMIZATION.md](docs/DEPARTMENT_PAGE_CUSTOMIZATION.md).
 
 To create all collaboration branches locally:
 
