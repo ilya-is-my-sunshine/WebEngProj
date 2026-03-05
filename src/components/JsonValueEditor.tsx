@@ -3,6 +3,7 @@ type JsonValueEditorProps = {
   value: unknown;
   onChange: (next: unknown) => void;
   depth?: number;
+  showLabel?: boolean;
 };
 
 function toTitleCase(path: string) {
@@ -37,6 +38,7 @@ export default function JsonValueEditor({
   value,
   onChange,
   depth = 0,
+  showLabel = true,
 }: JsonValueEditorProps) {
   const childIndent = depth > 1 ? "ml-4" : "";
 
@@ -48,7 +50,7 @@ export default function JsonValueEditor({
 
     return (
       <section className={`${depth === 0 ? "space-y-4" : "rounded-xl border p-4"} ${childIndent}`}>
-        {depth > 0 && <FieldLabel text={label} />}
+        {depth > 0 && showLabel && <FieldLabel text={label} />}
 
         <div className="space-y-3">
           {value.map((item, index) => (
@@ -89,21 +91,43 @@ export default function JsonValueEditor({
     const entries = Object.entries(value as Record<string, unknown>);
     return (
       <section className={`${depth === 0 ? "space-y-4" : "rounded-xl border p-4"} ${childIndent}`}>
-        {depth > 0 && <FieldLabel text={label} />}
+        {depth > 0 && showLabel && <FieldLabel text={label} />}
         <div className="space-y-4">
           {entries.map(([key, current]) => (
-            <JsonValueEditor
-              key={key}
-              label={key}
-              value={current}
-              onChange={(nextValue) =>
-                onChange({
-                  ...(value as Record<string, unknown>),
-                  [key]: nextValue,
-                })
-              }
-              depth={depth + 1}
-            />
+            depth === 0 ? (
+              <details key={key} className="rounded-xl border p-4" open>
+                <summary className="cursor-pointer select-none text-sm font-bold text-gray-900">
+                  {toTitleCase(key)}
+                </summary>
+                <div className="mt-4">
+                  <JsonValueEditor
+                    label={key}
+                    value={current}
+                    onChange={(nextValue) =>
+                      onChange({
+                        ...(value as Record<string, unknown>),
+                        [key]: nextValue,
+                      })
+                    }
+                    depth={depth + 1}
+                    showLabel={false}
+                  />
+                </div>
+              </details>
+            ) : (
+              <JsonValueEditor
+                key={key}
+                label={key}
+                value={current}
+                onChange={(nextValue) =>
+                  onChange({
+                    ...(value as Record<string, unknown>),
+                    [key]: nextValue,
+                  })
+                }
+                depth={depth + 1}
+              />
+            )
           ))}
         </div>
       </section>
@@ -113,7 +137,7 @@ export default function JsonValueEditor({
   if (typeof value === "number") {
     return (
       <label className={`block ${childIndent}`}>
-        <FieldLabel text={label} />
+        {showLabel && <FieldLabel text={label} />}
         <input
           type="number"
           value={value}
@@ -133,7 +157,7 @@ export default function JsonValueEditor({
           onChange={(e) => onChange(e.target.checked)}
           className="h-4 w-4"
         />
-        <FieldLabel text={label} />
+        {showLabel && <FieldLabel text={label} />}
       </label>
     );
   }
@@ -141,7 +165,7 @@ export default function JsonValueEditor({
   if (value === null) {
     return (
       <label className={`block ${childIndent}`}>
-        <FieldLabel text={label} />
+        {showLabel && <FieldLabel text={label} />}
         <input
           value=""
           onChange={(e) => onChange(e.target.value)}
@@ -158,7 +182,7 @@ export default function JsonValueEditor({
   if (multiline) {
     return (
       <label className={`block ${childIndent}`}>
-        <FieldLabel text={label} />
+        {showLabel && <FieldLabel text={label} />}
         <textarea
           value={textValue}
           onChange={(e) => onChange(e.target.value)}
@@ -170,7 +194,7 @@ export default function JsonValueEditor({
 
   return (
     <label className={`block ${childIndent}`}>
-      <FieldLabel text={label} />
+      {showLabel && <FieldLabel text={label} />}
       <input
         value={textValue}
         onChange={(e) => onChange(e.target.value)}
@@ -179,4 +203,3 @@ export default function JsonValueEditor({
     </label>
   );
 }
-
