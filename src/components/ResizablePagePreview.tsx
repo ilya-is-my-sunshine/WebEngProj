@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type ResizablePagePreviewProps = {
   title: string;
@@ -7,6 +7,12 @@ type ResizablePagePreviewProps = {
   liveToken?: string;
 };
 
+function withPreviewNonce(url: string): string {
+  const parsed = new URL(url, window.location.origin);
+  parsed.searchParams.set("_pv", String(Date.now()));
+  return `${parsed.pathname}${parsed.search}${parsed.hash}`;
+}
+
 export default function ResizablePagePreview({
   title,
   description,
@@ -14,17 +20,38 @@ export default function ResizablePagePreview({
   liveToken,
 }: ResizablePagePreviewProps) {
   const [width, setWidth] = useState(420);
-  const [refreshNonce, setRefreshNonce] = useState(0);
+  const [src, setSrc] = useState(previewUrl);
+  const [pendingScrollY, setPendingScrollY] = useState<number | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+
+  const refreshPreview = () => {
+    const y = iframeRef.current?.contentWindow?.scrollY ?? 0;
+    setPendingScrollY(y);
+    setSrc(withPreviewNonce(previewUrl));
+  };
+
+  useEffect(() => {
+    refreshPreview();
+    // previewUrl changes should point iframe to new path
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [previewUrl]);
 
   useEffect(() => {
     if (typeof liveToken === "undefined") return;
 
     const timer = window.setTimeout(() => {
-      setRefreshNonce((n) => n + 1);
+      refreshPreview();
     }, 180);
 
     return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveToken]);
+
+  const handleLoad = () => {
+    if (pendingScrollY === null) return;
+    iframeRef.current?.contentWindow?.scrollTo({ top: pendingScrollY, behavior: "auto" });
+    setPendingScrollY(null);
+  };
 
   return (
     <aside className="xl:sticky xl:top-6 xl:self-start rounded-2xl border bg-white p-6">
@@ -47,7 +74,7 @@ export default function ResizablePagePreview({
       <div className="mt-3 flex gap-2">
         <button
           type="button"
-          onClick={() => setRefreshNonce((n) => n + 1)}
+          onClick={refreshPreview}
           className="rounded-lg border px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50"
         >
           Reload Preview
@@ -65,10 +92,11 @@ export default function ResizablePagePreview({
       <div className="mt-4 overflow-auto rounded-xl border bg-white p-2">
         <div style={{ width }} className="mx-auto border rounded-lg overflow-hidden bg-white">
           <iframe
-            key={`${previewUrl}-${refreshNonce}`}
-            src={previewUrl}
+            ref={iframeRef}
+            src={src}
             title="Page Preview"
             className="h-[760px] w-full"
+            onLoad={handleLoad}
           />
         </div>
       </div>

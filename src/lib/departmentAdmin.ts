@@ -25,6 +25,10 @@ function storageKey(code: string) {
   return `department-admin:${code.toUpperCase()}`;
 }
 
+function draftStorageKey(code: string) {
+  return `department-admin-draft:${code.toUpperCase()}`;
+}
+
 export function extractEditableContent(
   dept: DepartmentData
 ): DepartmentEditableContent {
@@ -71,13 +75,42 @@ export function clearDeptOverrides(code: string) {
   window.localStorage.removeItem(storageKey(code));
 }
 
+export function loadDeptDraft(code: string): DepartmentEditableContent | null {
+  if (typeof window === "undefined") return null;
+
+  const raw = window.localStorage.getItem(draftStorageKey(code));
+  if (!raw) return null;
+
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!isEditableContent(parsed)) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function saveDeptDraft(code: string, content: DepartmentEditableContent) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(draftStorageKey(code), JSON.stringify(content));
+}
+
+export function clearDeptDraft(code: string) {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(draftStorageKey(code));
+}
+
 export function mergeDeptWithOverrides(dept: DepartmentData): DepartmentData {
-  const overrides = loadDeptOverrides(dept.code);
-  if (!overrides) return dept;
+  const isPreviewMode =
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("preview") === "dept";
+
+  const source = isPreviewMode ? loadDeptDraft(dept.code) : loadDeptOverrides(dept.code);
+  if (!source) return dept;
 
   return {
     ...dept,
-    ...overrides,
+    ...source,
   };
 }
 

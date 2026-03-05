@@ -1,9 +1,11 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import {
+  clearDeptDraft,
   clearDeptOverrides,
   extractEditableContent,
   loadDeptOverrides,
+  saveDeptDraft,
   saveDeptOverrides,
   type DepartmentEditableContent,
 } from "../lib/departmentAdmin";
@@ -87,9 +89,15 @@ export default function DepartmentAdminPage() {
 
   const handleReset = () => {
     clearDeptOverrides(code);
+    clearDeptDraft(code);
     setForm(extractEditableContent(baseDept));
     setStatus("Reset complete. Local override removed.");
   };
+
+  useEffect(() => {
+    if (!form) return;
+    saveDeptDraft(code, form);
+  }, [code, form]);
 
   const updateArrayItem = <T,>(
     items: T[],
@@ -801,7 +809,7 @@ export default function DepartmentAdminPage() {
               <ResizablePagePreview
                 title="Live Preview"
                 description="This is the actual department page rendered in an iframe. It refreshes automatically while you type."
-                previewUrl={`/dept/${code}`}
+                previewUrl={`/dept/${code}?preview=dept`}
                 liveToken={fullJsonText}
               />
             </div>
