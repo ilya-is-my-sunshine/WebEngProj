@@ -28,7 +28,7 @@ export default function MEPage() {
       (document.querySelector("link[rel~='icon']") as HTMLLinkElement | null);
 
     if (link) {
-      link.href = `/icons/${dept.code.toLowerCase()}.svg`;
+      link.href = `/icons/${dept.code.toLowerCase()}.png`;
     }
   }, [dept]);
 

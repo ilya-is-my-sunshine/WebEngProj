@@ -56,7 +56,7 @@ export function MENavbar({
     <header className="me-nav">
       <div className="me-nav__inner">
         <Link to={`/dept/${dept.code}`} className="me-nav__brand">
-          <span className="me-nav__seal">BULSU</span>
+        <img src="/icons/me.png" alt="Mechanical Engineering Logo" className="me-nav__seal" />
           <span>
             <span className="me-nav__title">{dept.shortTitle}</span>
             <span className="me-nav__subtitle">College of Engineering</span>
