@@ -1,5 +1,33 @@
 const base = "/departments/ECE";
 
+
+const facultyMembers = [
+  { name: "Engr. Donald M. Lapiguera", role: "Department Chair" },
+  { name: "Engr. Mervin E. Albalate", role: "Faculty" },
+  { name: "Dr. Russell N. Alfonso, PECE, ASEAN Engr.", role: "Faculty" },
+  { name: "Engr. Hilario A. Calinao Jr.", role: "Faculty" },
+  { name: "Engr. Jeffrey V. Cayetano", role: "Faculty" },
+  { name: "Engr. Jenette C. Centeno", role: "Faculty" },
+  { name: "Engr. Patrick John Z. Dayrit, PECE", role: "Faculty" },
+  { name: "Engr. Dennis R. Dela Cruz", role: "Faculty" },
+  { name: "Engr. Christian Fajardo, PECE, ASEAN Engr.", role: "Faculty" },
+  { name: "Dr. Reagan L. Galvez, PECE", role: "Faculty" },
+  { name: "Engr. Richard R. Garcia, PECE, ASEAN, ACPE, APEC Engr.", role: "Faculty" },
+  { name: "Engr. Nemuel Norman F. Giron", role: "Faculty" },
+  { name: "Engr. Albert Ian R. Javier", role: "Faculty" },
+  { name: "Engr. Nasher G. Jimenez, PECE", role: "Faculty" },
+  { name: "Engr. Amor A. Lacara", role: "Faculty" },
+  { name: "Dr. Marlon C. Leyesa, PECE", role: "Faculty" },
+  { name: "Prof. Oliver R. Mariano, PECE, ASEAN Engr.", role: "Faculty" },
+  { name: "Engr. Dion Michael Mendoza", role: "Faculty" },
+  { name: "Prof. Bernardo M. Pangilinan, PECE, ACPE", role: "Faculty" },
+  { name: "Engr. Rannie D.S. Salvador", role: "Faculty" },
+  { name: "Engr. Evangelyn C. Samson", role: "Faculty" },
+  { name: "Engr. Benjamin L. Santa Maria Jr.", role: "Faculty" },
+  { name: "Engr. Paul Ryan A. Santiago", role: "Faculty" },
+  { name: "Engr. Rina S.P. Santiago", role: "Faculty" },
+];
+
 export const ECE = {
   code: "ECE",
   title: "ELECTRONICS ENGINEERING",
@@ -16,11 +44,6 @@ export const ECE = {
     watermark: `${base}/watermark.png`,
   },
 
-  programOverview: {
-    heading: "Program Overview",
-    text: "Edit this Program Overview text for this department.",
-    stats: { nonTeaching: 0, faculty: 24, students: 0 },
-  },
 
   peo: {
     title: "Program Educational Objectives (PEO)",
@@ -53,12 +76,14 @@ export const ECE = {
 
   faculty: {
     title: "Faculty",
-    members: [
-      { name: "Engr. Donald M. Lapiguera", role: "Department Chair" },
-      { name: "Engr. Sample Name", role: "Faculty" },
-    ],
+    members: facultyMembers,  // Use the const
   },
 
+  programOverview: {
+    heading: "Program Overview",
+    text: "Edit this Program Overview text for this department.",
+    stats: { nonTeaching: 0, faculty: facultyMembers.length, students: 0 },
+  },
   careers: {
     title: "Career Opportunities",
     subtitle: "Edit careers subtitle here.",
