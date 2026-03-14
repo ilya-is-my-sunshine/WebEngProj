@@ -198,6 +198,18 @@
   display: none;
 }
 
+.me-nav__desktop-cta {
+  display: inline-flex;
+}
+
+.me-nav__drawer-head {
+  display: none;
+}
+
+.me-nav__drawer {
+  display: none;
+}
+
 .me-hero {
   display: grid;
   gap: 1.5rem;
@@ -929,18 +941,28 @@
   }
 
   .me-nav__links {
+    display: none;
+  }
+
+  .me-nav__desktop-cta {
+    display: none;
+  }
+
+  .me-nav__drawer {
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    z-index: 35;
+    z-index: 80;
     width: min(22rem, calc(100vw - 2.5rem));
-    padding: 5.5rem 1.2rem 1.5rem;
+    padding: 1rem 1.2rem 1.5rem;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
     gap: 0.75rem;
     overflow-y: auto;
+    overflow-x: hidden;
     background:
       linear-gradient(180deg, rgba(255, 250, 243, 0.98), rgba(241, 229, 215, 0.98));
     border-left: 1px solid rgba(123, 17, 19, 0.1);
@@ -949,8 +971,74 @@
     transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .me-nav__links.is-open {
+  .me-nav__overlay {
+    z-index: 70;
+  }
+
+  .me-nav__drawer.is-open {
     transform: translateX(0);
+  }
+
+  .me-nav__drawer-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid rgba(123, 17, 19, 0.1);
+  }
+
+  .me-nav__drawer-label {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--me-accent);
+  }
+
+  .me-nav__drawer-title {
+    margin: 0.35rem 0 0;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--me-ink);
+  }
+
+  .me-nav__drawer-close {
+    position: relative;
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba(123, 17, 19, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+  }
+
+  .me-nav__drawer-close:hover,
+  .me-nav__drawer-close:focus-visible {
+    border-color: rgba(123, 17, 19, 0.26);
+    background: rgba(123, 17, 19, 0.08);
+    outline: none;
+  }
+
+  .me-nav__drawer-close-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1rem;
+    height: 0.14rem;
+    border-radius: 999px;
+    background: var(--me-accent);
+  }
+
+  .me-nav__drawer-close-line:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .me-nav__drawer-close-line:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 
   .me-nav__link {
@@ -1013,7 +1101,7 @@
     min-height: 14rem;
   }
 
-  .me-nav__links {
+  .me-nav__drawer {
     width: min(19rem, calc(100vw - 1rem));
     padding-inline: 1rem;
   }
@@ -1056,7 +1144,7 @@
   .me-button,
   .me-nav__toggle,
   .me-nav__overlay,
-  .me-nav__links {
+  .me-nav__drawer {
     transition: none;
   }
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 
 type ScrollNavItem = {
@@ -78,9 +79,6 @@ export function MENavbar({
       return undefined;
     }
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false);
@@ -90,7 +88,6 @@ export function MENavbar({
     document.addEventListener("keydown", handleEscape);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", handleEscape);
     };
   }, [isMenuOpen]);
@@ -104,66 +101,125 @@ export function MENavbar({
     closeMenu();
   };
 
+  const desktopLinks = (
+    <nav className="me-nav__links" aria-label={`${dept.shortTitle} navigation`}>
+      {items.map((item) =>
+        item.kind === "scroll" ? (
+          <button
+            key={item.label}
+            type="button"
+            className="me-nav__link"
+            onClick={() => onNav?.(item.target)}
+          >
+            {item.label}
+          </button>
+        ) : (
+          <Link key={item.label} to={item.to} className="me-nav__link">
+            {item.label}
+          </Link>
+        )
+      )}
+    </nav>
+  );
+
+  const mobileDrawer =
+    typeof document === "undefined"
+      ? null
+      : createPortal(
+          <>
+            <div
+              className={isMenuOpen ? "me-nav__overlay is-open" : "me-nav__overlay"}
+              onClick={closeMenu}
+              aria-hidden="true"
+            />
+
+            <nav
+              id="me-nav-menu"
+              className={isMenuOpen ? "me-nav__drawer is-open" : "me-nav__drawer"}
+              aria-label={`${dept.shortTitle} navigation`}
+              aria-hidden={!isMenuOpen}
+            >
+              <div className="me-nav__drawer-head">
+                <div>
+                  <p className="me-nav__drawer-label">Navigation</p>
+                  <p className="me-nav__drawer-title">{dept.shortTitle}</p>
+                </div>
+
+                <button
+                  type="button"
+                  className="me-nav__drawer-close"
+                  aria-label="Close navigation menu"
+                  onClick={closeMenu}
+                >
+                  <span className="me-nav__drawer-close-line" />
+                  <span className="me-nav__drawer-close-line" />
+                </button>
+              </div>
+
+              {items.map((item) =>
+                item.kind === "scroll" ? (
+                  <button
+                    key={item.label}
+                    type="button"
+                    className="me-nav__link"
+                    onClick={() => handleScrollItemClick(item.target)}
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <Link key={item.label} to={item.to} className="me-nav__link" onClick={closeMenu}>
+                    {item.label}
+                  </Link>
+                )
+              )}
+
+              {cta ? (
+                <Link to={cta.to} className="me-button me-button--nav me-nav__cta" onClick={closeMenu}>
+                  {cta.label}
+                </Link>
+              ) : null}
+            </nav>
+          </>,
+          document.body
+        );
+
   return (
-    <header className="me-nav">
-      <div className="me-nav__inner">
-        <Link to={`/dept/${dept.code}`} className="me-nav__brand" onClick={closeMenu}>
-          <img src="/icons/me.png" alt="Mechanical Engineering Logo" className="me-nav__seal" />
-          <span>
-            <span className="me-nav__title">{dept.shortTitle}</span>
-            <span className="me-nav__subtitle">College of Engineering</span>
-          </span>
-        </Link>
+    <>
+      <header className="me-nav">
+        <div className="me-nav__inner">
+          <Link to={`/dept/${dept.code}`} className="me-nav__brand" onClick={closeMenu}>
+            <img src="/icons/me.png" alt="Mechanical Engineering Logo" className="me-nav__seal" />
+            <span>
+              <span className="me-nav__title">{dept.shortTitle}</span>
+              <span className="me-nav__subtitle">College of Engineering</span>
+            </span>
+          </Link>
 
-        <button
-          type="button"
-          className="me-nav__toggle"
-          aria-expanded={isMenuOpen}
-          aria-controls="me-nav-menu"
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-          onClick={() => setIsMenuOpen((open) => !open)}
-        >
-          <span className="me-nav__toggle-bar" />
-          <span className="me-nav__toggle-bar" />
-          <span className="me-nav__toggle-bar" />
-        </button>
-
-        <div
-          className={isMenuOpen ? "me-nav__overlay is-open" : "me-nav__overlay"}
-          onClick={closeMenu}
-          aria-hidden="true"
-        />
-
-        <nav
-          id="me-nav-menu"
-          className={isMenuOpen ? "me-nav__links is-open" : "me-nav__links"}
-          aria-label={`${dept.shortTitle} navigation`}
-        >
-          {items.map((item) =>
-            item.kind === "scroll" ? (
-              <button
-                key={item.label}
-                type="button"
-                className="me-nav__link"
-                onClick={() => handleScrollItemClick(item.target)}
-              >
-                {item.label}
-              </button>
-            ) : (
-              <Link key={item.label} to={item.to} className="me-nav__link" onClick={closeMenu}>
-                {item.label}
-              </Link>
-            )
-          )}
+          {desktopLinks}
 
           {cta ? (
-            <Link to={cta.to} className="me-button me-button--nav me-nav__cta" onClick={closeMenu}>
+            <Link to={cta.to} className="me-button me-button--nav me-nav__desktop-cta">
               {cta.label}
             </Link>
           ) : null}
-        </nav>
-      </div>
-    </header>
+
+          <button
+            type="button"
+            className="me-nav__toggle"
+            aria-expanded={isMenuOpen}
+            aria-controls="me-nav-menu"
+            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            <span className="me-nav__toggle-bar" />
+            <span className="me-nav__toggle-bar" />
+            <span className="me-nav__toggle-bar" />
+          </button>
+        </div>
+      </header>
+
+      {mobileDrawer}
+    </>
   );
 }
 
