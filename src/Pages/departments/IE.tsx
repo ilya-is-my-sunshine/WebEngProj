@@ -102,15 +102,12 @@ export default function IEPage() {
 
         <div className="mt-10 grid grid-cols-12 gap-8 items-center">
           
-          {/* Left Side: Alive Logo Container */}
           <div className="col-span-12 md:col-span-5 lg:col-span-6">
             <div className="group relative flex h-[320px] md:h-[420px] w-full items-center justify-center overflow-hidden rounded-3xl border border-green-50 bg-gradient-to-br from-green-50/50 to-white p-8 shadow-[0_8px_30px_rgb(22,163,74,0.05)] transition-all duration-500 hover:shadow-[0_8px_40px_rgb(22,163,74,0.15)]">
               
-              {/* Animated glowing blobs behind the transparent PNG logo */}
               <div className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-green-200 opacity-40 blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:opacity-60"></div>
               <div className="absolute -bottom-10 -right-10 h-48 w-48 rounded-full bg-[#16a34a] opacity-10 blur-3xl transition-transform duration-700 group-hover:scale-150 group-hover:opacity-30"></div>
               
-              {/* Logo - Changed to object-contain so the PNG displays perfectly */}
               <img 
                 src={dept.images.peo} 
                 alt="IE Department Logo" 
@@ -119,23 +116,19 @@ export default function IEPage() {
             </div>
           </div>
 
-          {/* Right Side: Interactive PEO Cards */}
           <div className="col-span-12 md:col-span-7 lg:col-span-6 flex flex-col justify-center space-y-4">
             {dept.peo.bullets.map((b: string, idx: number) => (
               <div 
                 key={idx} 
                 className="group relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#16a34a] hover:shadow-[0_8px_30px_rgb(22,163,74,0.12)]"
               >
-                {/* Green indicator line on the left that slides down on hover */}
                 <div className="absolute left-0 top-0 h-0 w-1 bg-[#16a34a] transition-all duration-300 group-hover:h-full"></div>
                 
                 <div className="flex items-start gap-5">
-                  {/* Number Badge */}
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-xl font-black text-gray-400 transition-all duration-300 group-hover:bg-green-50 group-hover:text-[#16a34a] group-hover:scale-110 group-hover:rotate-3 shadow-sm">
                     0{idx + 1}
                   </div>
                   
-                  {/* Content */}
                   <div>
                     <h3 className="mb-2 text-base font-bold text-gray-900 transition-colors group-hover:text-[#16a34a]">
                       PEO {idx + 1}
@@ -184,7 +177,6 @@ export default function IEPage() {
           ))}
         </div>
 
-        {/* Modal Logic */}
         {selectedYear && (
           <CurriculumModal 
             year={selectedYear} 
@@ -248,20 +240,17 @@ export default function IEPage() {
           {dept.faculty.members.map((member: any, idx: number) => (
             <div key={`${member.name}-${idx}`} className="flex flex-col items-center text-center group">
               
-              {/* Profile Picture */}
               <div className="relative mb-4 h-32 w-32 overflow-hidden rounded-full border-4 border-gray-50 shadow-md transition-all duration-300 group-hover:border-[#16a34a] group-hover:shadow-lg">
                 <img 
                   src={member.image} 
                   alt={`Profile of ${member.name}`} 
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                   onError={(e) => {
-                    // Fallback if the image path is broken
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=f3f4f6&color=374151&size=128`;
                   }}
                 />
               </div>
 
-              {/* Text Block */}
               <h3 className="text-sm font-bold text-gray-900 group-hover:text-[#16a34a] transition-colors">{member.name}</h3>
               <p className="mt-1 text-xs text-gray-500 max-w-[200px] leading-tight">{member.role}</p>
               
@@ -277,25 +266,20 @@ export default function IEPage() {
           {dept.careers.cards.map((card: any, idx: number) => (
             <div 
               key={idx} 
-              // Changed p-8 to pt-8 px-8 pb-4 to reduce the bottom padding specifically
               className="group relative flex flex-col rounded-2xl border border-gray-100 bg-white px-8 pt-8 pb-4 text-left overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#16a34a] hover:shadow-[0_8px_30px_rgb(22,163,74,0.15)]"
             >
-              {/* Decorative expanding bottom line */}
               <div className="absolute bottom-0 left-0 h-1 w-0 bg-[#16a34a] transition-all duration-500 ease-out group-hover:w-full" />
 
-              {/* Icon Box - Added mx-auto to center it perfectly */}
               <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gray-50 text-3xl shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-green-50 group-hover:shadow-green-100">
                 <span className="transform transition-transform duration-300 group-hover:rotate-6">
                   {card.icon}
                 </span>
               </div>
               
-              {/* Title - Centered to match the icon */}
               <h3 className="text-center mb-4 text-xl font-extrabold text-gray-900 transition-colors duration-300 group-hover:text-[#16a34a]">
                 {card.title}
               </h3>
               
-              {/* Career List - Kept text-left for neat bullet points */}
               <p className="text-sm text-gray-600 whitespace-pre-line leading-loose flex-1 text-left">
                 {card.text}
               </p>
@@ -307,7 +291,6 @@ export default function IEPage() {
 <section id="contact" className="max-w-6xl mx-auto px-6 pt-16 pb-16">
         <div className="rounded-3xl border border-gray-100 bg-gray-50 p-6 md:p-10 flex flex-col md:flex-row gap-10 items-start md:items-center justify-between shadow-sm">
           
-          {/* Left Side: Header & Intro */}
           <div className="max-w-lg">
             <h2 className="text-3xl font-black text-gray-900 tracking-tight">Get in Touch</h2>
             <p className="mt-4 text-base text-gray-600 leading-relaxed">
@@ -315,10 +298,8 @@ export default function IEPage() {
             </p>
           </div>
 
-          {/* Right Side: Alive Green Contact Card */}
           <div className="relative overflow-hidden bg-gradient-to-br from-[#16a34a] to-[#14532d] p-8 rounded-2xl shadow-[0_10px_40px_-10px_rgba(22,163,74,0.5)] w-full md:w-auto min-w-[340px] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(22,163,74,0.6)]">
             
-            {/* Decorative Glow inside the card */}
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl pointer-events-none"></div>
             <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-green-400 opacity-20 rounded-full blur-2xl pointer-events-none"></div>
             
@@ -326,7 +307,6 @@ export default function IEPage() {
             <p className="text-xs font-black text-green-200 mt-1 uppercase tracking-widest relative z-10">Program Chair</p>
             
             <div className="mt-8 space-y-4 relative z-10">
-              {/* Email */}
               <div className="flex items-center gap-4 text-sm text-white group">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-lg transition-transform group-hover:scale-110 group-hover:bg-white/20">✉️</div>
                 <a 
@@ -337,7 +317,6 @@ export default function IEPage() {
                 </a>
               </div>
               
-              {/* Location */}
               <div className="flex items-center gap-4 text-sm text-white group">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-lg transition-transform group-hover:scale-110 group-hover:bg-white/20">📍</div>
                 <span className="font-medium">College of Engineering, BulSU</span>
