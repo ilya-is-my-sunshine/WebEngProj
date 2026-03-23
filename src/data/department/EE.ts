@@ -13,7 +13,7 @@ export const EE = {
     heroLeft: `${base}/lente.png`,
     heroBig: `${base}/cover.png`,
     heroSmall1: `${base}/passing.png`,
-    heroSmall2: `${base}/logo.png`,
+    heroSmall2: `${base}/authomathic_2026.jpg`,
     peo: `${base}/ee-logo.png`,
     watermark: `${base}/watermark.png`
   },
@@ -110,7 +110,7 @@ export const EE = {
 
   curriculum: {
     title: "Curriculum Overview",
-    text: "The 2024 Revised Bachelor of Science in Electrical Engineering curriculum...",
+    text: "",
     years: [
       {
         id: "1st-Year", label: "First Year",
@@ -431,7 +431,7 @@ export const EE = {
 
   careers: {
     title: "Career Opportunities",
-    subtitle: "Edit careers subtitle here.",
+    subtitle: "",
     categories: [
       {
         title: "Power and Energy Sector Careers",
