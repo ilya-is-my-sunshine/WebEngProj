@@ -26,28 +26,29 @@ export default function Navbar({
   );
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b">
-      <div className="relative h-16 max-w-6xl mx-auto px-6 flex items-center">
+    <header className="sticky top-0 z-50 ce-bg-navy shadow-md">
+      <div className="relative h-20 max-w-6xl mx-auto px-6 flex items-center">
         {/* Left: logo + text */}
         <button
           type="button"
           onClick={() => onNav?.("home")}
-          className="flex items-center gap-3"
+          className="flex items-center gap-4 group"
           aria-label="Home"
         >
-          <img src={logoSrc} alt="Logo" className="w-10 h-10 object-contain" />
-          <div className="leading-tight text-left">
+          <img src={logoSrc} alt="Logo" className="w-16 h-16 object-contain transition-transform duration-300 group-hover:scale-110" />
+          <div className="text-white font-black tracking-tighter text-2xl">
+            BULSU <span className="ce-text-gold">CE</span>
           </div>
         </button>
 
         {/* Center nav */}
-        <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 text-xs text-gray-500">
+        <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[11px] font-bold uppercase tracking-widest text-white/70">
           {links.map((l) => (
             <button
               key={l.id}
               type="button"
               onClick={() => onNav?.(l.id)}
-              className="hover:text-gray-900 transition"
+              className="hover:text-white transition-colors duration-200 ce-nav-link"
             >
               {l.label}
             </button>
@@ -59,7 +60,7 @@ export default function Navbar({
           <button
             type="button"
             onClick={() => onNav?.("contact")}
-            className="hidden md:inline-flex items-center justify-center px-5 py-2 rounded-full text-white text-sm font-semibold bg-[#A90000] hover:bg-[#8f0000] transition"
+            className="hidden md:inline-flex items-center justify-center px-8 py-2.5 rounded-full text-white text-xs font-black uppercase tracking-widest ce-bg-gold hover:bg-[#F2D94E] transition-colors shadow-lg"
           >
             Contact
           </button>

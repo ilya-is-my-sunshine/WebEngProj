@@ -5,6 +5,7 @@ import SectionTitle from "../../components/CEsectiontitle";
 import Footer from "../../components/CEfooter";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { CE } from "../../data/department/CE";
+import CEIcon from "../../assets/CEicon.svg";
 import "../../styles/departments/CE.css";
 
 export default function CEPage() {
@@ -35,166 +36,275 @@ export default function CEPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white ce-text-dark selection:bg-gold-200">
       <Navbar onNav={onNav} />
 
-      <section id="home" className="max-w-6xl mx-auto px-6 pt-10">
-        <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-wide text-gray-900">
+      {/* Hero Section */}
+      <section id="home" className="max-w-6xl mx-auto px-6 pt-16">
+        <div className="text-center ce-animate-fade-in">
+          <div className="mb-8 flex justify-center group">
+             <img src={CEIcon} alt="CE Logo" className="w-40 h-40 object-contain transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+          </div>
+          <h1 className="text-3xl md:text-6xl font-black tracking-tight ce-text-navy uppercase">
             {dept.title}
           </h1>
-          <p className="mt-2 text-sm text-gray-500">{dept.subtitle}</p>
-          <div className="mt-5">
+          <p className="mt-6 text-xl text-gray-600 max-w-2xl mx-auto ce-animate-fade-in ce-delay-1">{dept.subtitle}</p>
+          <div className="mt-10 flex justify-center gap-4 ce-animate-fade-in ce-delay-2">
             <Link
               to={`/dept/${dept.code}/admin`}
-              className="inline-flex items-center rounded-full border border-[#a90000] px-5 py-2 text-sm font-semibold text-[#a90000] hover:bg-[#a90000] hover:text-white"
+              className="inline-flex items-center rounded-full px-8 py-4 text-sm font-black uppercase tracking-widest ce-button-gold shadow-xl"
             >
-              Open Department Admin
+              Explore Curriculum
             </Link>
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-12 gap-5">
+        <div className="mt-16 grid grid-cols-12 gap-6 ce-animate-fade-in ce-delay-3">
           <div className="col-span-12 md:col-span-4">
-            <div className="h-[380px] md:h-[440px] rounded-2xl overflow-hidden bg-gray-200">
-              <img src={dept.images.heroLeft} alt="" className="w-full h-full object-cover" />
+            <div className="h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl border-4 ce-border-gold group">
+              <img src={dept.images.heroLeft} alt="" className="w-full h-full object-cover ce-image-zoom" />
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-5">
+          <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-6">
             <div className="col-span-12">
-              <div className="h-[220px] md:h-[240px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroBig} alt="" className="w-full h-full object-cover" />
+              <div className="h-[240px] md:h-[280px] rounded-3xl overflow-hidden shadow-xl group">
+                <img src={dept.images.heroBig} alt="" className="w-full h-full object-cover ce-image-zoom" />
               </div>
             </div>
 
             <div className="col-span-12 md:col-span-6">
-              <div className="h-[160px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroSmall1} alt="" className="w-full h-full object-cover" />
+              <div className="h-[200px] rounded-3xl overflow-hidden shadow-lg border-2 border-gray-100 group">
+                <img src={dept.images.heroSmall1} alt="" className="w-full h-full object-cover ce-image-zoom" />
               </div>
             </div>
 
             <div className="col-span-12 md:col-span-6">
-              <div className="h-[160px] rounded-2xl overflow-hidden bg-gray-200">
-                <img src={dept.images.heroSmall2} alt="" className="w-full h-full object-cover" />
+              <div className="h-[200px] rounded-3xl overflow-hidden shadow-lg border-2 border-gray-100 group">
+                <img src={dept.images.heroSmall2} alt="" className="w-full h-full object-cover ce-image-zoom" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="about" className="max-w-6xl mx-auto px-6 pt-10">
-        <div className="text-left">
-          <div className="text-sm font-semibold text-gray-900">{dept.programOverview.heading}</div>
-          <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-3xl">{dept.programOverview.text}</p>
-        </div>
-
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <Stat value={dept.programOverview.stats.nonTeaching} label="Non-Teaching Personnel" accentHex={dept.theme.accentHex} />
-          <Stat value={dept.programOverview.stats.faculty} label="Faculty" accentHex={dept.theme.accentHex} />
-          <Stat value={dept.programOverview.stats.students} label="Enrolled Students" accentHex={dept.theme.accentHex} />
+      {/* 1. Program Overview */}
+      <section id="about" className="ce-bg-light mt-32 py-24">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+            <div className="ce-animate-fade-in">
+              <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">
+                {dept.programOverview.heading}
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black ce-text-navy leading-tight">
+                Pioneering the Future of Infrastructure
+              </h2>
+              <p className="mt-8 text-lg text-gray-600 leading-relaxed font-medium">
+                {dept.programOverview.text}
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-8">
+              <div className="bg-white p-10 rounded-3xl shadow-sm border-l-8 ce-border-gold transition-transform hover:-translate-x-2">
+                <Stat value={dept.programOverview.stats.students} label="Enrolled Students" color="var(--primary-navy)" />
+              </div>
+              <div className="grid grid-cols-2 gap-8">
+                <div className="bg-white p-10 rounded-3xl shadow-sm border-l-8 border-gray-200 transition-transform hover:-translate-y-2">
+                  <Stat value={dept.programOverview.stats.faculty} label="Expert Faculty" color="var(--primary-navy)" />
+                </div>
+                <div className="bg-white p-10 rounded-3xl shadow-sm border-l-8 border-gray-200 transition-transform hover:-translate-y-2">
+                  <Stat value={dept.programOverview.stats.nonTeaching} label="Support Staff" color="var(--primary-navy)" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="peo" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.peo.title} subtitle={dept.peo.subtitle} />
+      {/* 2. Program Educational Objectives */}
+      <section id="peo" className="max-w-6xl mx-auto px-6 py-32">
+        <SectionTitle 
+          center 
+          eyebrow="MISSION ORIENTED" 
+          title={dept.peo.title} 
+          subtitle={dept.peo.subtitle} 
+        />
 
-        <div className="mt-10 grid grid-cols-12 gap-8 items-start">
-          <div className="col-span-12 md:col-span-6">
-            <div className="rounded-2xl overflow-hidden bg-gray-200">
-              <img src={dept.images.peo} alt="" className="w-full h-[320px] md:h-[360px] object-cover" />
-            </div>
-          </div>
-
-          <div className="col-span-12 md:col-span-6">
-            <div className="space-y-5">
+        <div className="mt-20 grid grid-cols-12 gap-16 items-center">
+          <div className="col-span-12 md:col-span-5 order-2 md:order-1">
+            <div className="space-y-10">
               {dept.peo.bullets.map((b, idx) => (
-                <Bullet key={idx} title={`PEO ${idx + 1}`} text={b} />
+                <div key={idx} className="flex gap-8 group">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl ce-bg-navy flex items-center justify-center text-white font-black text-xl transition-all group-hover:ce-bg-gold group-hover:scale-110 shadow-lg">
+                    {idx + 1}
+                  </div>
+                  <div className="pt-2">
+                    <p className="text-lg text-gray-700 leading-relaxed font-semibold group-hover:ce-text-navy transition-colors">{b}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
+
+          <div className="col-span-12 md:col-span-7 order-1 md:order-2">
+            <div className="relative group">
+              <div className="absolute -top-6 -right-6 w-full h-full ce-bg-gold rounded-[3rem] -z-10 opacity-10 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
+              <div className="rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
+                <img src={dept.images.peo} alt="PEO" className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section id="so" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.so.title} subtitle={dept.so.subtitle} />
+      {/* 3. Student Outcomes */}
+      <section id="so" className="ce-bg-navy py-32 text-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+          <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">COMPETENCIES</div>
+          <h2 className="text-4xl md:text-6xl font-black mb-8">{dept.so.title}</h2>
+          <p className="text-gray-400 max-w-3xl mx-auto text-xl mb-20">{dept.so.subtitle}</p>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {dept.so.outcomes.map((o, idx) => (
-            <OutcomeCard key={idx} title={o.title} text={o.text} />
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {dept.so.outcomes.map((o, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-md border border-white/10 p-10 rounded-[2rem] text-left hover:bg-white/10 hover:border-white/20 transition-all duration-300 group">
+                <div className="w-14 h-14 rounded-2xl ce-bg-gold flex items-center justify-center text-navy font-black text-2xl mb-8 group-hover:scale-110 transition-transform">
+                  {o.title.split(" ")[1] || idx + 1}
+                </div>
+                <p className="text-gray-200 leading-relaxed font-medium text-lg">{o.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="curriculum" className="max-w-6xl mx-auto px-6 pt-16">
-        <div className="grid grid-cols-12 gap-8 items-start">
+      {/* 4. Curriculum Overview */}
+      <section id="curriculum" className="max-w-6xl mx-auto px-6 py-32">
+        <div className="grid grid-cols-12 gap-20 items-center">
           <div className="col-span-12 md:col-span-6">
-            <div className="text-xs font-semibold text-gray-400 tracking-wide">TAKE A TOUR</div>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900">{dept.curriculum.title}</h2>
-            <p className="mt-3 text-sm text-gray-500 leading-relaxed">{dept.curriculum.text}</p>
+            <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">LEARNING PATH</div>
+            <h2 className="text-4xl md:text-6xl font-black ce-text-navy leading-tight">{dept.curriculumOverview.title}</h2>
+            <p className="mt-8 text-xl text-gray-600 leading-relaxed">{dept.curriculumOverview.text}</p>
 
-            <ul className="mt-6 space-y-3 text-sm text-gray-600">
-              {dept.curriculum.bullets.map((b, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: dept.theme.accentHex }} />
-                  {b}
+            <ul className="mt-12 space-y-5">
+              {dept.curriculumOverview.bullets.map((b, idx) => (
+                <li key={idx} className="flex items-center gap-6 text-gray-700 font-bold group">
+                  <div className="w-4 h-4 rounded-full ce-bg-gold transition-transform group-hover:scale-125" />
+                  <span className="text-lg">{b}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className="col-span-12 md:col-span-6">
-            <div className="h-[360px] md:h-[420px] rounded-2xl bg-gray-50 border flex items-center justify-center overflow-hidden">
-              <img src={dept.images.watermark} alt="" className="w-[420px] md:w-[520px] opacity-20 select-none" />
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#D4AF37] to-[#1F3A4D] rounded-[3rem] blur-xl opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative h-[450px] md:h-[550px] rounded-[3rem] bg-white border border-gray-100 flex items-center justify-center overflow-hidden shadow-2xl">
+                <img src={dept.images.watermark} alt="" className="w-[85%] opacity-5 select-none grayscale transition-all duration-1000 group-hover:scale-110 group-hover:rotate-6" />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="text-[12rem] font-black text-gray-100/30 tracking-tighter transition-all duration-700 group-hover:text-gray-200/50">CE</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="laboratories" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.laboratories.title} subtitle="Department laboratories and learning spaces" />
-
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {dept.laboratories.items.map((lab, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-6">
-              <div className="text-xs font-semibold text-gray-400">LAB {idx + 1}</div>
-              <h3 className="mt-2 text-base font-bold text-gray-900">{lab}</h3>
-            </div>
-          ))}
+      {/* 5. Program Curriculum */}
+      <section id="program-curriculum" className="ce-bg-light py-32">
+        <div className="max-w-6xl mx-auto px-6">
+          <SectionTitle 
+            center 
+            eyebrow="ACADEMIC MAP" 
+            title={dept.programCurriculum.title} 
+            subtitle="Explore our comprehensive 4-year curriculum designed for future civil engineers." 
+          />
+          
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {dept.programCurriculum.years.map((y, idx) => (
+              <div key={idx} className="group bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-2xl transition-all duration-300 border-t-[10px] ce-border-gold hover:-translate-y-3">
+                <h3 className="text-2xl font-black ce-text-navy mb-6 uppercase tracking-tight">{y.year}</h3>
+                <div className="space-y-4">
+                  {y.semesters.map((s, sIdx) => (
+                    <div key={sIdx} className="flex items-center gap-4 text-gray-500 font-bold group-hover:ce-text-gold transition-colors">
+                      <div className="w-2 h-2 rounded-full bg-gray-300 group-hover:ce-bg-gold transition-colors" />
+                      <span className="text-sm">{s}</span>
+                    </div>
+                  ))}
+                </div>
+                  <button className="mt-10 text-xs font-black ce-text-gold hover:ce-text-navy transition-all uppercase tracking-widest flex items-center gap-2 group/btn">
+                    Course Details 
+                    <span className="transition-transform group-hover/btn:translate-x-1">&rarr;</span>
+                  </button>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section id="faculty" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
+      {/* 6. Career Opportunities */}
+      <section id="careers" className="max-w-6xl mx-auto px-6 py-32">
+        <SectionTitle 
+          center 
+          eyebrow="FUTURE PATHS" 
+          title={dept.careers.title} 
+          subtitle={dept.careers.subtitle} 
+        />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-          {dept.faculty.members.map((member, idx) => (
-            <div key={`${member.name}-${idx}`} className="rounded-2xl border bg-white p-6">
-              <h3 className="font-bold text-gray-900">{member.name}</h3>
-              <p className="mt-1 text-sm text-gray-600">{member.role}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="careers" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.careers.title} subtitle={dept.careers.subtitle} />
-
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-10">
           {dept.careers.cards.map((card, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-6 text-center">
-              <div className="text-3xl" aria-hidden="true">{card.icon}</div>
-              <h3 className="mt-4 font-bold text-gray-900">{card.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{card.text}</p>
+            <div key={idx} className="group bg-white p-12 rounded-[2.5rem] border-2 border-gray-50 text-center hover:border-gold-300 ce-card-hover shadow-sm">
+              <div className="w-24 h-24 ce-bg-light rounded-3xl flex items-center justify-center text-5xl mx-auto group-hover:ce-bg-gold transition-all duration-500 group-hover:rotate-6 shadow-sm" aria-hidden="true">
+                {card.icon}
+              </div>
+              <h3 className="mt-10 text-2xl font-black ce-text-navy uppercase tracking-tight">{card.title}</h3>
+              <p className="mt-6 text-gray-500 leading-relaxed font-medium text-lg">{card.text}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
-        <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">
-          <h2 className="text-xl font-bold text-gray-900">Department Contact</h2>
-          <p className="mt-2 text-sm text-gray-600">Add contact details for {dept.title} in this section.</p>
+      {/* Laboratories */}
+      <section id="laboratories" className="ce-bg-light py-32">
+         <div className="max-w-6xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div className="text-left ce-animate-fade-in">
+                     <div className="text-sm font-black ce-text-gold tracking-[0.3em] uppercase mb-6">RESOURCES</div>
+                    <h2 className="text-4xl md:text-6xl font-black ce-text-navy uppercase tracking-tight">{dept.laboratories.title}</h2>
+                </div>
+                <p className="text-gray-500 max-w-md text-lg font-medium italic">Empowering students through advanced experimental learning and cutting-edge research environments.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {dept.laboratories.items.map((lab, idx) => (
+                <div key={idx} className="bg-white p-8 rounded-3xl shadow-sm hover:ce-bg-navy group transition-all duration-500 hover:-translate-y-2 cursor-pointer border border-gray-50">
+                <div className="text-[10px] font-black ce-text-gold group-hover:text-white/40 mb-4 tracking-[0.2em] uppercase">LABORATORY {idx + 1}</div>
+                <h3 className="text-xl font-bold ce-text-navy group-hover:text-white transition-colors leading-snug">{lab}</h3>
+                <div className="mt-6 w-8 h-1 ce-bg-gold group-hover:w-full transition-all duration-500"></div>
+                </div>
+            ))}
+            </div>
+        </div>
+      </section>
+
+      {/* Faculty */}
+      <section id="faculty" className="max-w-6xl mx-auto px-6 py-32">
+        <SectionTitle center eyebrow="LEADERSHIP" title={dept.faculty.title} />
+
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10">
+          {dept.faculty.members.map((member, idx) => (
+            <div key={`${member.name}-${idx}`} className="group flex items-center gap-8 bg-white p-10 rounded-[2.5rem] border-2 border-gray-50 hover:border-gold-300 transition-all hover:shadow-2xl hover:-translate-y-1">
+                <div className="w-20 h-20 rounded-2xl ce-bg-navy flex items-center justify-center text-white font-black text-3xl transition-transform group-hover:scale-110 group-hover:rotate-3 shadow-xl">
+                    {member.name.split(" ").pop()?.charAt(0)}
+                </div>
+                <div>
+                    <h3 className="font-black text-2xl ce-text-navy tracking-tight">{member.name}</h3>
+                    <div className="mt-2 flex items-center gap-3">
+                        <span className="w-6 h-0.5 ce-bg-gold"></span>
+                        <p className="text-xs font-black ce-text-gold uppercase tracking-widest">{member.role}</p>
+                    </div>
+                </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -206,37 +316,18 @@ export default function CEPage() {
 function Stat({
   value,
   label,
-  accentHex,
+  color,
 }: {
   value: number;
   label: string;
-  accentHex: string;
+  color: string;
 }) {
   return (
-    <div>
-      <div className="text-3xl font-extrabold" style={{ color: accentHex }}>
-        {value}
+    <div className="text-center md:text-left group">
+      <div className="text-5xl font-black transition-transform group-hover:scale-110" style={{ color }}>
+        {value}+
       </div>
-      <div className="mt-1 text-xs font-semibold text-gray-500">{label}</div>
-    </div>
-  );
-}
-
-function Bullet({ title, text }: { title: string; text: string }) {
-  return (
-    <div>
-      <div className="font-semibold text-gray-900">{title}</div>
-      <div className="mt-1 text-sm text-gray-500">{text}</div>
-    </div>
-  );
-}
-
-function OutcomeCard({ title, text }: { title: string; text: string }) {
-  return (
-    <div className="rounded-2xl border bg-white p-6 text-center">
-      <div className="mx-auto w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">OK</div>
-      <div className="mt-4 font-semibold text-gray-900">{title}</div>
-      <div className="mt-2 text-sm text-gray-500">{text}</div>
+      <div className="mt-3 text-xs font-black text-gray-400 uppercase tracking-[0.2em] group-hover:ce-text-gold transition-colors">{label}</div>
     </div>
   );
 }

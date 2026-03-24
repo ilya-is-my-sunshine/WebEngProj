@@ -5,7 +5,7 @@ export const CE = {
   title: "CIVIL ENGINEERING",
   subtitle: "Bachelor of Science in Civil Engineering",
 
-  theme: { accentHex: "#2563eb" },
+  theme: { accentHex: "#1F3A4D", primaryGold: "#D4AF37" },
 
   images: {
     heroLeft: `${base}/hero-left.png`,
@@ -18,35 +18,57 @@ export const CE = {
 
   programOverview: {
     heading: "Program Overview",
-    text: "EDIT ME: Civil Engineering program overview.",
+    text: "The Civil Engineering program provides students with a solid foundation in the principles of mathematics, science, and engineering. Our curriculum is designed to prepare graduates for professional practice and advanced studies in various fields of civil engineering, including structural, geotechnical, water resources, transportation, and environmental engineering.",
     stats: { nonTeaching: 11, faculty: 22, students: 333 },
   },
 
   peo: {
     title: "Program Educational Objectives",
-    subtitle: "EDIT ME: PEO subtitle.",
-    bullets: ["PEO 1...", "PEO 2...", "PEO 3..."],
+    subtitle: "The graduates of the Civil Engineering program are expected to achieve the following within a few years of graduation:",
+    bullets: [
+      "Demonstrate proficiency in the application of civil engineering principles to solve complex engineering problems.",
+      "Exhibit leadership and professionalism in their chosen career paths.",
+      "Engage in lifelong learning and professional development to keep pace with the advancements in the field.",
+    ],
   },
 
   so: {
     title: "Student Outcomes",
-    subtitle: "EDIT ME: SO subtitle.",
+    subtitle: "By the time of graduation, the students of the Civil Engineering program shall have the ability to:",
     outcomes: [
-      { title: "SO 1", text: "Description..." },
-      { title: "SO 2", text: "Description..." },
-      { title: "SO 3", text: "Description..." },
+      { title: "SO 1", text: "Apply knowledge of mathematics, science, and engineering fundamentals." },
+      { title: "SO 2", text: "Design and conduct experiments, as well as analyze and interpret data." },
+      { title: "SO 3", text: "Design a system, component, or process to meet desired needs within realistic constraints." },
+      { title: "SO 4", text: "Function effectively on multi-disciplinary teams." },
+      { title: "SO 5", text: "Identify, formulate, and solve engineering problems." },
+      { title: "SO 6", text: "Understand professional and ethical responsibility." },
     ],
   },
 
-  curriculum: {
+  curriculumOverview: {
     title: "Curriculum Overview",
-    text: "EDIT ME: curriculum overview text.",
-    bullets: ["Bullet 1", "Bullet 2", "Bullet 3"],
+    text: "Our curriculum is structured to provide a balance between theoretical knowledge and practical application. It includes core engineering courses, specialized electives, and hands-on laboratory experiences.",
+    bullets: [
+      "Strong foundation in Mathematics and Basic Sciences",
+      "Comprehensive Core Civil Engineering Courses",
+      "Specialized Electives in Various Tracks",
+      "Integration of Design and Research Projects",
+    ],
+  },
+
+  programCurriculum: {
+    title: "Program Curriculum",
+    years: [
+      { year: "First Year", semesters: ["1st Semester", "2nd Semester"] },
+      { year: "Second Year", semesters: ["1st Semester", "2nd Semester"] },
+      { year: "Third Year", semesters: ["1st Semester", "2nd Semester"] },
+      { year: "Fourth Year", semesters: ["1st Semester", "2nd Semester"] },
+    ],
   },
 
   laboratories: {
     title: "Laboratories",
-    items: ["Materials Lab", "Surveying Lab", "Hydraulics Lab"],
+    items: ["Materials Testing Lab", "Geotechnical Engineering Lab", "Hydraulics and Water Resources Lab", "Surveying and Geomatics Lab"],
   },
 
   faculty: {

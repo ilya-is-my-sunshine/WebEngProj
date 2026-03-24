@@ -3,68 +3,80 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-white border-t mt-20">
-            <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-4 gap-10 items-start">
+        <footer className="ce-bg-navy text-white mt-24">
+            <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-4 gap-16 items-start">
 
                 {/* LEFT - LOGO */}
-                <div className="flex items-center gap-3">
-                    <img
-                        src={bulsuLogo}
-                        alt="BULSU"
-                        className="w-10 h-10"
-                    />
-                    <div className="font-semibold text-gray-700">
-                        BULSU COE
+                <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                        <img
+                            src={bulsuLogo}
+                            alt="BULSU"
+                            className="w-12 h-12 brightness-0 invert"
+                        />
+                        <div className="font-black text-2xl tracking-tighter">
+                            BULSU <span className="ce-text-gold">COE</span>
+                        </div>
                     </div>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                        Leading the way in engineering excellence and innovation for a better tomorrow.
+                    </p>
                 </div>
 
-                {/* HOME */}
+                {/* LINKS */}
                 <div>
-                    <ul className="space-y-2 text-sm text-gray-500">
+                    <h4 className="ce-text-gold font-bold uppercase tracking-widest text-xs mb-6">Navigation</h4>
+                    <ul className="space-y-4 text-sm text-gray-400">
                         <li>
-                            <Link to="/departments" className="hover:text-gray-800">
-                                Department
+                            <Link to="/departments" className="hover:text-white transition-colors">
+                                Departments
                             </Link>
                         </li>
-
                         <li>
-                            <Link to="/#facilities" className="hover:text-gray-800">
+                            <Link to="/#facilities" className="hover:text-white transition-colors">
                                 Facilities
                             </Link>
                         </li>
-
                         <li>
-                            <Link to="/#news" className="hover:text-gray-800">
+                            <Link to="/#news" className="hover:text-white transition-colors">
                                 News
                             </Link>
                         </li>
                     </ul>
                 </div>
 
-                {/* DEPARTMENT COLUMN 1 */}
+                {/* DEPARTMENTS 1 */}
                 <div>
-                    <ul className="space-y-2 text-sm text-gray-500">
-                        <li><Link to="/dept/CE">Civil</Link></li>
-                        <li><Link to="/dept/CPE">Computer</Link></li>
-                        <li><Link to="/dept/ME">Mechanical</Link></li>
+                    <h4 className="ce-text-gold font-bold uppercase tracking-widest text-xs mb-6">Programs</h4>
+                    <ul className="space-y-4 text-sm text-gray-400">
+                        <li><Link to="/dept/CE" className="hover:text-white transition-colors font-bold text-white">Civil Engineering</Link></li>
+                        <li><Link to="/dept/CPE" className="hover:text-white transition-colors">Computer Engineering</Link></li>
+                        <li><Link to="/dept/ME" className="hover:text-white transition-colors">Mechanical Engineering</Link></li>
+                        <li><Link to="/dept/IE" className="hover:text-white transition-colors">Industrial Engineering</Link></li>
                     </ul>
                 </div>
 
-                {/* DEPARTMENT COLUMN 2 */}
-                <div className="pt-6 md:pt-0">
-                    <ul className="space-y-2 text-sm text-gray-500">
-                        <li><Link to="/dept/IE">Industrial</Link></li>
-                        <li><Link to="/dept/EE">Electrical</Link></li>
-                        <li><Link to="/dept/ECE">Electronics</Link></li>
-                        <li><Link to="/dept/MEE">Mechatronics</Link></li>
-                        <li><Link to="/dept/MFE">Manufacturing</Link></li>
+                {/* DEPARTMENTS 2 */}
+                <div>
+                    <h4 className="ce-text-gold font-bold uppercase tracking-widest text-xs mb-6">&nbsp;</h4>
+                    <ul className="space-y-4 text-sm text-gray-400">
+                        <li><Link to="/dept/EE" className="hover:text-white transition-colors">Electrical Engineering</Link></li>
+                        <li><Link to="/dept/ECE" className="hover:text-white transition-colors">Electronics Engineering</Link></li>
+                        <li><Link to="/dept/MEE" className="hover:text-white transition-colors">Mechatronics Engineering</Link></li>
+                        <li><Link to="/dept/MFE" className="hover:text-white transition-colors">Manufacturing Engineering</Link></li>
                     </ul>
                 </div>
             </div>
 
             {/* COPYRIGHT */}
-            <div className="text-center text-xs text-gray-500 pb-6">
-                Copyright © COE. All rights reserved
+            <div className="border-t border-white/10 max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="text-sm text-gray-500">
+                    Copyright © {new Date().getFullYear()} COE. All rights reserved.
+                </div>
+                <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <button className="hover:text-white">Privacy Policy</button>
+                    <button className="hover:text-white">Terms of Service</button>
+                </div>
             </div>
         </footer>
     );
