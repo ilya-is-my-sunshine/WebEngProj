@@ -1,0 +1,7 @@
+services:
+  webeng:
+    image: ${WEBENG_IMAGE:-ghcr.io/OWNER/REPO-webeng:main}
+    container_name: webeng-site
+    restart: unless-stopped
+    ports:
+      - "${WEBENG_BIND_HOST:-127.0.0.1}:${WEBENG_BIND_PORT:-8080}:80"
