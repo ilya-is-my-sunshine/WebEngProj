@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { MEE } from "../../data/department/MEE";
 import "../../styles/departments/MEE.css";
-import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Search, Globe, BookOpen, Scale, Cpu, Briefcase, Cog, } from "lucide-react";
+import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Globe, BookOpen, Scale, Cpu, Briefcase, Cog, } from "lucide-react";
 
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
@@ -152,10 +152,10 @@ export default function MEEPage() {
       </section>
 
       <section id="about" className="max-w-6xl mx-auto px-6 pt-10">
-        <div className="mt-12 max-w-[1100px]">
-<SectionTitle
-  title={dept.programOverview.heading}
-/>
+        <div className="mt-12 w-full">
+          <SectionTitle
+            title={dept.programOverview.heading}
+          />
           <p className="mt-4 text-md text-gray-800 leading-9 text-justify">
             {dept.programOverview.text}
           </p>
@@ -194,29 +194,27 @@ export default function MEEPage() {
 
         <div className="mt-10 grid grid-cols-12 gap-8 items-start">
 
-  {/* IMAGE */}
-  <div className="col-span-12 md:col-span-6 overflow-hidden">
-    <div className="w-full h-[350px] md:h-[350px] rounded-2xl overflow-hidden flex items-center justify-center">
-      
-      <img
-        src={dept.images.peo}
-        alt="Mechatronics Gears"
-        className="w-full h-full object-contain p-6"
-      />
+          <div className="col-span-12 md:col-span-6 overflow-hidden">
+            <div className="w-full h-[350px] md:h-[350px] rounded-2xl overflow-hidden flex items-center justify-center">
+
+              <img
+                src={dept.images.peo}
+                alt="Mechatronics Gears"
+                className="w-full h-full object-contain p-6"
+              />
 
             </div>
           </div>
 
-  {/* TEXT */}
-  <div className="col-span-12 md:col-span-6 min-w-0">
-    <div className="space-y-6">
-      
-      {dept.peo.bullets.map((b, idx) => (
-        <div key={idx}>
-          
-          <h4 className="text-lg font-semibold text-gray-800">
-            PEO {idx + 1}
-          </h4>
+          <div className="col-span-12 md:col-span-6 min-w-0">
+            <div className="space-y-6">
+
+              {dept.peo.bullets.map((b, idx) => (
+                <div key={idx}>
+
+                  <h4 className="text-lg font-semibold text-gray-800">
+                    PEO {idx + 1}
+                  </h4>
 
                   <p className="mt-2 text-gray-600 leading-relaxed text-justify break-words">
                     {b}
