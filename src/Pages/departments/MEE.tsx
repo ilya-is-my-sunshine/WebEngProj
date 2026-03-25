@@ -52,149 +52,158 @@ export default function MEEPage() {
           </div>
         </div>
 
-<div className="mt-8 grid grid-cols-12 gap-5">
+        <div className="mt-8 grid grid-cols-12 gap-5">
 
-  {/* LEFT BIG */}
-  <a 
-    href="https://www.facebook.com/photo?fbid=3604494319879176&set=a.750132340243852"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block col-span-12 md:col-span-4"
-  >
-    <div className="group h-[380px] md:h-[670px] rounded-2xl overflow-hidden bg-gray-200 
+          {/* LEFT BIG */}
+          <a
+            href="https://www.facebook.com/photo?fbid=3604494319879176&set=a.750132340243852"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block col-span-12 md:col-span-4"
+          >
+            <div className="group h-[380px] md:h-[670px] rounded-2xl overflow-hidden bg-gray-200 
                     transition-all duration-500 ease-out 
                     hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
 
-      <div className="w-full h-full relative overflow-hidden">
-        <img
-          src={dept.images.heroLeft}
-          alt=""
-          className="w-full h-full object-cover 
+              <div className="w-full h-full relative overflow-hidden">
+                <img
+                  src={dept.images.heroLeft}
+                  alt=""
+                  className="w-full h-full object-cover 
                      transition-transform duration-700 ease-out 
                      group-hover:scale-110"
-        />
+                />
 
-        <div className="absolute inset-0 bg-black/10 
+                <div className="absolute inset-0 bg-black/10 
                         opacity-0 group-hover:opacity-100 
                         transition duration-500"></div>
-      </div>
-    </div>
-  </a>
+              </div>
+            </div>
+          </a>
 
 
-  <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-5">
-    
-    {/* TOP BIG */}
-    <a 
-      href="https://www.facebook.com/photo/?fbid=1263589322231482&set=a.750132360243850"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block col-span-12"
-    >
-      <div className="group h-[300px] rounded-2xl overflow-hidden bg-gray-200 
+          <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-5">
+
+            {/* TOP BIG */}
+            <a
+              href="https://www.facebook.com/photo/?fbid=1263589322231482&set=a.750132360243850"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block col-span-12"
+            >
+              <div className="group h-[300px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-        
-        <div className="w-full h-full relative overflow-hidden">
-          <img
-            src={dept.images.heroBig}
-            alt=""
-            className="w-full h-full object-cover 
+
+                <div className="w-full h-full relative overflow-hidden">
+                  <img
+                    src={dept.images.heroBig}
+                    alt=""
+                    className="w-full h-full object-cover 
                        transition-transform duration-700 ease-out 
                        group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/10 
+                  />
+                  <div className="absolute inset-0 bg-black/10 
                           opacity-0 group-hover:opacity-100 
                           transition duration-500"></div>
-        </div>
-      </div>
-    </a>
+                </div>
+              </div>
+            </a>
 
 
-    {/* SMALL 1 */}
-    <a 
-      href="https://www.facebook.com/AIMEESBulSU/posts/pfbid0QBMLNdvqEusEnLRtnMp6d5jxH2NGUHKFcPr7BGNu2ii6W3wUGATKcNa4po2ScTZQl?rdid=HBuJMuAqSMrBdxxk#"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block col-span-12 md:col-span-6"
-    >
-      <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
+            {/* SMALL 1 */}
+            <a
+              href="https://www.facebook.com/AIMEESBulSU/posts/pfbid0QBMLNdvqEusEnLRtnMp6d5jxH2NGUHKFcPr7BGNu2ii6W3wUGATKcNa4po2ScTZQl?rdid=HBuJMuAqSMrBdxxk#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block col-span-12 md:col-span-6"
+            >
+              <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-        
-        <div className="w-full h-full relative overflow-hidden">
-          <img
-            src={dept.images.heroSmall1}
-            alt=""
-            className="w-full h-full object-cover 
+
+                <div className="w-full h-full relative overflow-hidden">
+                  <img
+                    src={dept.images.heroSmall1}
+                    alt=""
+                    className="w-full h-full object-cover 
                        transition-transform duration-700 ease-out 
                        group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/10 
+                  />
+                  <div className="absolute inset-0 bg-black/10 
                           opacity-0 group-hover:opacity-100 
                           transition duration-500"></div>
-        </div>
-      </div>
-    </a>
+                </div>
+              </div>
+            </a>
 
 
-    {/* SMALL 2 */}
-    <a 
-      href="https://www.facebook.com/AIMEESBulSU/posts/pfbid02ijHers3CGTgvyKqmZkGb1X7XDtdX6uhnTX3J8hCWgEYbuXzUhY2eGnktoXpjJUaHl?rdid=MeGMAnY0orEaeqMi#"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block col-span-12 md:col-span-6"
-    >
-      <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
+            {/* SMALL 2 */}
+            <a
+              href="https://www.facebook.com/AIMEESBulSU/posts/pfbid02ijHers3CGTgvyKqmZkGb1X7XDtdX6uhnTX3J8hCWgEYbuXzUhY2eGnktoXpjJUaHl?rdid=MeGMAnY0orEaeqMi#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block col-span-12 md:col-span-6"
+            >
+              <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
-        
-        <div className="w-full h-full relative overflow-hidden">
-          <img
-            src={dept.images.heroSmall2}
-            alt=""
-            className="w-full h-full object-cover 
+
+                <div className="w-full h-full relative overflow-hidden">
+                  <img
+                    src={dept.images.heroSmall2}
+                    alt=""
+                    className="w-full h-full object-cover 
                        transition-transform duration-700 ease-out 
                        group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-black/10 
+                  />
+                  <div className="absolute inset-0 bg-black/10 
                           opacity-0 group-hover:opacity-100 
                           transition duration-500"></div>
-        </div>
-      </div>
-    </a>
+                </div>
+              </div>
+            </a>
 
-  </div>
-</div>
+          </div>
+        </div>
       </section>
 
       <section id="about" className="max-w-6xl mx-auto px-6 pt-10">
-        <div className="text-justify">
-          <div className="text-sm font-semibold text-gray-900">
-            {dept.programOverview.heading}
-          </div>
-          <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-3xl">
-            {dept.programOverview.text}
-          </p>
-        </div>
+        <div className="mt-12 max-w-[1100px]">
+  <div className="text-[25px] font-semibold text-gray-900 tracking-wide">
+    {dept.programOverview.heading}
+  </div>
 
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-          <Stat
-            value={dept.programOverview.stats.nonTeaching}
-            label="Non-Teaching Personnel"
-            accentHex={dept.theme.accentHex}
-          />
-          <Stat
-            value={dept.programOverview.stats.faculty}
-            label="Faculty"
-            accentHex={dept.theme.accentHex}
-          />
-          <Stat
-            value={dept.programOverview.stats.students}
-            label="Enrolled Students"
-            accentHex={dept.theme.accentHex}
-          />
-        </div>
+  <p className="mt-4 text-[18px] text-gray-600 leading-9 text-justify">
+    {dept.programOverview.text}
+  </p>
+</div>
+
+<div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+  <div className="scale-150">
+    <Stat
+      value={dept.programOverview.stats.nonTeaching}
+      label="Non-Teaching Personnel"
+      accentHex={dept.theme.accentHex}
+    />
+  </div>
+
+  <div className="scale-150">
+    <Stat
+      value={dept.programOverview.stats.faculty}
+      label="Faculty"
+      accentHex={dept.theme.accentHex}
+    />
+  </div>
+
+  <div className="scale-150">
+    <Stat
+      value={dept.programOverview.stats.students}
+      label="Enrolled Students"
+      accentHex={dept.theme.accentHex}
+    />
+  </div>
+</div>
       </section>
 
       <section id="peo" className="max-w-6xl mx-auto px-6 pt-16">
