@@ -119,9 +119,9 @@ export const CE = {
       { year: "Fourth Year", semesters: ["1st Semester", "2nd Semester"] },
     ],
     tracks: [
-      { name: "Construction Engineering and Management", file: "Construction_Engineering_and_Management.pdf" },
-      { name: "Structural Engineering", file: "Structural_Engineering.pdf" },
-      { name: "Transportation Engineering", file: "Transportation_Engineering.pdf" },
+      { name: "Construction Engineering and Management", file: "BSCE - CONSTRUCTION ENGINEERING AND MANAGEMENT-CONTENTS NOTED.pdf" },
+      { name: "Structural Engineering", file: "BSCE - STRUCTURAL ENGINEERING-CONTENTS NOTED.pdf" },
+      { name: "Transportation Engineering", file: "BSCE - TRANSPORTATION ENGINEERING-CONTENTS NOTED.pdf" },
     ],
   },
 
