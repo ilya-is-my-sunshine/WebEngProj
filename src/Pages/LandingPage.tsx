@@ -1032,17 +1032,6 @@ function LandingFooterSection({ data }: { data: Sections["footer"] }) {
   );
 }
 
-function SectionCard({ data, children }: { data: { id: string; title: string; assignedGroup: string; statusLabel: string }; children?: ReactNode }) {
-  return (
-    <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
-      <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">{data.statusLabel}</p>
-      <h2 className="mt-3 text-2xl font-bold text-gray-900">{data.title}</h2>
-      <p className="mt-2 text-sm text-gray-600">{data.assignedGroup}</p>
-      {children}
-    </div>
-  );
-}
-
 export default function LandingPage() {
   const isPreviewMode = useMemo(() => {
     if (typeof window === "undefined") return false;
