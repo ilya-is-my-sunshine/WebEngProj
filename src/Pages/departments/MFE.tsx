@@ -398,31 +398,49 @@ export default function MFEPage() {
       </section>
 
       {/* --- contact --- */}
-      <section id="contact" className="max-w-4xl mx-auto px-6 py-16">
-        <div className="group relative bg-[#050505] border border-white/10 rounded-xl p-10 md:p-16 transition-all duration-500 hover:border-white/20 shadow-2xl overflow-hidden">
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-1000 pointer-events-none" style={{ background: `radial-gradient(circle at center, ${dept.theme.accentHex}, transparent)` }} />
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-            <div className="flex-1 space-y-8 text-center md:text-left">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none">Connect <br /> <span className="text-zinc-800 transition-colors duration-700 group-hover:text-zinc-500">With Us</span></h2>
-                <div className="h-1 w-12 bg-white mt-6 mx-auto md:mx-0" />
-              </div>
-              <p className="text-zinc-400 text-[15px] leading-relaxed max-w-sm font-medium">Primary contact for academic and industry coordination for the <span className="text-white">{dept.code}</span> department.</p>
+      <section id="contact" className="group relative w-full bg-[#050505] border-y border-white/5 py-12 transition-all duration-500 hover:border-white/10 overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-1000 pointer-events-none" 
+          style={{ background: `radial-gradient(circle at center, ${dept.theme.accentHex}, transparent)` }} 
+        />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+          
+          <div className="flex-1 space-y-4 text-center md:text-left">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter leading-tight">
+                Connect <span className="text-zinc-800 transition-colors duration-700 group-hover:text-zinc-500">With Us</span>
+              </h2>
+              <div className="h-1 w-8 bg-white mt-3 mx-auto md:mx-0" />
             </div>
-            <div className="flex flex-col gap-10 items-center md:items-end w-full md:w-auto">
-              <button className="group/btn relative px-10 py-5 overflow-hidden transition-all duration-500 active:scale-95 cursor-pointer border border-white/20 hover:border-white">
-                <span className="relative z-10 font-black text-[11px] uppercase tracking-[0.4em] text-white group-hover:text-black transition-colors duration-500 flex items-center gap-4">Send Message <svg viewBox="0 0 24 24" className="w-4 h-4 fill-none stroke-current stroke-[3] transition-transform duration-500 group-hover:translate-x-1"><path d="M5 12h14M12 5l7 7-7 7" /></svg></span>
-                <div className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-[600ms] ease-[cubic-bezier(0.23,1,0.32,1)]" />
-              </button>
-              <div className="flex flex-col gap-1 items-center md:items-end opacity-60 group-hover:opacity-100 transition-opacity">
-                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">Operating Hours</span>
-                <span className="text-[13px] font-bold text-white uppercase tracking-wider">08:00 — 17:00 // M—F</span>
-              </div>
+            <p className="text-zinc-400 text-sm leading-relaxed max-w-sm font-medium">
+              Primary contact for academic and industry coordination for <span className="text-white">{dept.code}</span>.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-8 items-center md:items-center w-full md:w-auto">
+            <div className="flex flex-col gap-1 items-center md:items-end opacity-40 group-hover:opacity-100 transition-opacity">
+              <span className="text-[9px] font-mono text-zinc-500 uppercase tracking-[0.2em]">Operating Hours</span>
+              <span className="text-[12px] font-bold text-white uppercase tracking-wider">08:00 — 17:00 // M—F</span>
             </div>
+
+            <button className="group/btn relative px-8 py-4 overflow-hidden transition-all duration-500 active:scale-95 cursor-pointer border border-white/10 hover:border-white">
+              <span className="relative z-10 font-black text-[10px] uppercase tracking-[0.3em] text-white group-hover:text-black transition-colors duration-500 flex items-center gap-3">
+                Send Message 
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-none stroke-current stroke-[3] transition-transform duration-500 group-hover:translate-x-1">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </span>
+              <div className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-[500ms] ease-out" />
+            </button>
           </div>
-          <div className="absolute bottom-0 left-0 w-full h-[2px] bg-zinc-900">
-            <div className="h-full w-0 group-hover:w-full transition-all duration-1000 ease-in-out" style={{ backgroundColor: dept.theme.accentHex }} />
-          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-zinc-900">
+          <div 
+            className="h-full w-0 group-hover:w-full transition-all duration-700 ease-in-out" 
+            style={{ backgroundColor: dept.theme.accentHex }} 
+          />
         </div>
       </section>
 
@@ -455,6 +473,5 @@ export default function MFEPage() {
         </span>
       </button>
     </div>
-    
   );
 }
