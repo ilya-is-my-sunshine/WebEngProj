@@ -12,8 +12,8 @@ export default defineConfig({
     },
   },
   preview: {
-    host: "0.0.0.0",
-    port: 4173,
-    allowedHosts: ["webeng.ryanjoshuagapac.com"]
+    allowedHosts: ["webengproj.onrender.com"],
+    host: true, 
+    port: 4173  
   }
 })
