@@ -1,6 +1,24 @@
 {
-    "extends": "stylelint-config-standard",
-    "rules": {
-      "unit-allowed-list": ["px", "rem", "em", "vh", "vw", "%", "s", "ms"]
-    }
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "unit-allowed-list": ["px", "rem", "em", "vh", "vw", "%", "s", "ms", "deg", "fr"],
+    "selector-class-pattern": null,
+    "color-function-notation": null,
+    "alpha-value-notation": null,
+    "color-function-alias-notation": null,
+    "rule-empty-line-before": null,
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["tailwindcss", "tw-animate-css", "shadcn", "custom-variant", "theme"]
+      }
+    ],
+    "import-notation": null,
+    "lightness-notation": null,
+    "hue-degree-notation": null,
+    "declaration-property-value-keyword-no-deprecated": null,
+    "media-feature-range-notation": null,
+    "custom-property-empty-line-before": null,
+    "color-hex-length": null
   }
+}

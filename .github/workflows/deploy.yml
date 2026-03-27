@@ -51,6 +51,10 @@ jobs:
       - name: TypeScript Type Check
         run: npx tsc --noEmit 
 
+
+      - name: CSS Lint Check
+        run: npx stylelint "**/*.css"
+
       - name: Trigger Render Deploy
         # This ONLY runs on successful pushes to main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
