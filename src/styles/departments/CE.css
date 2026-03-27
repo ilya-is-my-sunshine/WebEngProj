@@ -15,7 +15,7 @@
   --accent-brown: #8B5A2B;
 }
 
-.ce-bg-navy { background-color: var(--primary-navy-DOESNT-EXIST); }
+.ce-bg-navy { background-color: var(--primary-navy); }
 .ce-text-navy { color: var(--primary-navy); }
 .ce-bg-gold { background-color: var(--primary-gold); }
 .ce-text-gold { color: var(--primary-gold); }
@@ -51,7 +51,7 @@
 
 .ce-image-zoom:hover {
   transform: scale(1.05);
-}
+
 
 .ce-nav-link {
   position: relative;
