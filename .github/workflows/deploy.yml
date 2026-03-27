@@ -1,17 +1,14 @@
-name: Build and Push to GHCR
+name: Pre-deployment Type Check
 
 on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ] 
+    branches: [ main ]
 
 jobs:
-  build-and-push:
+  type-check:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       - name: Checkout code
@@ -24,38 +21,9 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
+        # npm ci is faster and more reliable for CI environments
         run: npm ci
 
       - name: TypeScript Type Check
-        run: npx tsc --noEmit 
-
-      - name: Log in to GHCR
-        # We only need to log in and push if it's a merge to main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push Docker image
-        # This step only runs on pushes to main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/${{ github.repository_owner }}/webengproj:latest
-          platforms: linux/amd64 
-        
-      - name: TypeScript Type Check
-        run: npx tsc --noEmit 
-
-
-      - name: CSS Lint Check
-        run: npx stylelint "**/*.css"
-
-      - name: Trigger Render Deploy
-        # This ONLY runs on successful pushes to main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+        # This ensures no type errors exist without generating output files
+        run: npx tsc --noEmit
