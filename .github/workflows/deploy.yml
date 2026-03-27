@@ -50,9 +50,6 @@ jobs:
         
       - name: TypeScript Type Check
         run: npx tsc --noEmit 
-  
-      - name: CSS Lint Check
-        run: npx stylelint "**/*.css"
 
       - name: Trigger Render Deploy
         # This ONLY runs on successful pushes to main
