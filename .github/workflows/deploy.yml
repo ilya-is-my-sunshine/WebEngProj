@@ -1,4 +1,4 @@
-name: Pre-deployment Type Check
+name: CI Type Check
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 jobs:
   type-check:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,9 +20,14 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # npm ci is faster and more reliable for CI environments
         run: npm ci
 
       - name: TypeScript Type Check
-        # This ensures no type errors exist without generating output files
+        # This is your "Automatic Test"
+        # If this fails, the job stops and Vercel will show a failure status
         run: npx tsc --noEmit
+      
+      - name: 'notify vercel'
+        uses: 'vercel/repository-dispatch/actions/status@v1'
+        with:
+          name: "Vercel - web-eng-proj: lint"
