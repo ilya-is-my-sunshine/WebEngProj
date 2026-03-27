@@ -1,8 +1,8 @@
 /* Department-scoped custom CSS for CE page. */
 
 :root {
-  --primary-navy: #0097fc;
-  --primary-gold: #14b622;
+  --primary-navy: #1F3A4D;
+  --primary-gold: #D4AF37;
   --gold-hover: #F2D94E;
 
   --white: #FFFFFF;
@@ -15,7 +15,7 @@
   --accent-brown: #8B5A2B;
 }
 
-.ce-bg-navy { background-color: var(--primary-navy); }
+.ce-bg-navy { background-color: var(--primary-navy-DOESNT-EXIST); }
 .ce-text-navy { color: var(--primary-navy); }
 .ce-bg-gold { background-color: var(--primary-gold); }
 .ce-text-gold { color: var(--primary-gold); }
