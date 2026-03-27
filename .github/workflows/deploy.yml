@@ -1,4 +1,4 @@
-name: CI Type Check
+name: CI Type Check & Vercel Error Capture
 
 on:
   push:
@@ -7,8 +7,13 @@ on:
     branches: [ main ]
 
 jobs:
-  type-check:
+  build-and-test:
     runs-on: ubuntu-latest
+    # These environment variables are what allow the CLI to find your project
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,15 +24,67 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
       - name: Install dependencies
         run: npm ci
 
       - name: TypeScript Type Check
-        # This is your "Automatic Test"
-        # If this fails, the job stops and Vercel will show a failure status
+        # This is your first line of defense
         run: npx tsc --noEmit
-      
-      - name: 'notify vercel'
-        uses: 'vercel/repository-dispatch/actions/status@v1'
+
+      - name: Pull Vercel Environment Information
+        # This downloads your cloud settings (Env vars, etc.) to the runner
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project & Capture Logs
+        id: vercel-build
+        # We save the output to a file. If it fails, we set an environment variable to catch it.
+        run: |
+          vercel build --token=${{ secrets.VERCEL_TOKEN }} > build_logs.txt 2>&1 || (echo "BUILD_FAILED=true" >> $GITHUB_ENV && exit 1)
+
+      - name: Upload Logs on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
         with:
-          name: "Vercel - web-eng-proj: lint"
+          name: vercel-build-logs
+          path: build_logs.txt
+
+  notify-failure:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: failure()
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - name: Download Logs
+        uses: actions/download-artifact@v4
+        with:
+          name: vercel-build-logs
+
+      - name: Read Logs and Comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let snippet = "No log file found.";
+            if (fs.existsSync('build_logs.txt')) {
+              const logs = fs.readFileSync('build_logs.txt', 'utf8');
+              // Captures the last 25 lines where the error usually hides
+              snippet = logs.split('\n').slice(-25).join('\n');
+            }
+            
+            const body = `## ❌ Deployment Rejected\n\n**Vercel Build Error Snippet:**\n\`\`\`text\n${snippet}\n\`\`\`\n\n[View Full Action Logs](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})`;
+            
+            if (context.issue.number) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            } else {
+              console.log("Not a Pull Request. Check Actions tab for logs.");
+            }

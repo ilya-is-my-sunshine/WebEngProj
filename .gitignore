@@ -26,3 +26,5 @@ dist-ssr
 #my yml for render.com
 .github/workflows/render_yml_ver.yml
 .github/workflows/vercel_yml_ver.yml
+.vercel
+.env*.local
