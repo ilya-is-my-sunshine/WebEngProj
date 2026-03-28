@@ -20,7 +20,7 @@ import MEExcellencePage from "./Pages/departments/MEExcellence";
 import MEEPage from "./Pages/departments/MEE";
 import MFEPage from "./Pages/departments/MFE";
 import ScrollToTop from "./components/ScrollToTop";
-
+{};
 export default function App() {
   return (
     <>
