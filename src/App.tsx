@@ -22,7 +22,11 @@ import MFEPage from "./Pages/departments/MFE";
 import ScrollToTop from "./components/ScrollToTop";
 {};
 export default function App() {
-  return (
+  return (let age: number = 25;
+
+// This will flag an error:
+// Error: Type 'string' is not assignable to type 'number'.
+age = "twenty-five"; 
     <>
       <ScrollToTop />
 
