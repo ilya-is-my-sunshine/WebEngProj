@@ -36,7 +36,7 @@ export default function Navbar({
       { id: "curriculum" as const, label: "Curriculum" },
       { id: "careers" as const, label: "Careers" },
       { id: "laboratories" as const, label: "Laboratories" },
-      { id: "faculty" as const, label: "Faculty" },
+      { id: "faculty" as const, label: "FAcute me" },
     ],
     []
   );
